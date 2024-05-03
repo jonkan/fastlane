@@ -105,7 +105,12 @@ module Frameit
                                        default_value_dynamic: true,
                                        verify_block: proc do |value|
                                          UI.user_error!("Invalid platform type '#{value}'. Available values are " + Platform.all_platforms.join(', ') + ".") unless ConfigParser.supported_platform?(value)
-                                       end)
+                                       end),
+        FastlaneCore::ConfigItem.new(key: :string_catalogs,
+                                     env_name: 'FRAMEIT_STRING_CATALOGS',
+                                     description: "A list of string catalog paths",
+                                     type: Array,
+                                     default_value: [''])
       ]
     end
   end
