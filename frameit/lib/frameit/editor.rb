@@ -518,6 +518,9 @@ module Frameit
     def fetch_text(type)
       UI.user_error!("Valid parameters :keyword, :title") unless [:keyword, :title].include?(type)
 
+      string_catalog_text = fetch_string_catalog_text(type)
+      return string_catalog_text unless string_catalog_text.nil?
+
       # Try to get it from a keyword.strings or title.strings file
       strings_path = File.join(File.expand_path("../", screenshot.path), "#{type}.strings")
       strings_path = File.join(File.expand_path("../../", screenshot.path), "#{type}.strings") unless File.exist?(strings_path)
@@ -533,6 +536,48 @@ module Frameit
       # No string files, fallback to Framefile config
       text = @config[type.to_s]['text'] if @config[type.to_s] && @config[type.to_s]['text'] && @config[type.to_s]['text'].length > 0 # Ignore empty string
       return text
+    end
+
+    def fetch_string_catalog_text(type)
+      UI.user_error!("Valid parameters :keyword, :title") unless [:keyword, :title].include?(type)
+
+      screenshot_locale = File.basename(File.dirname(screenshot.path))
+      screenshot_language = screenshot_locale.split('-').first
+      UI.user_error!("Failed to parse language from screenshot path #{screenshot.path}") unless screenshot_language.length == 2
+
+      string_catalog_key = @config[type.to_s]['text']
+      string_catalog_paths = @config["string_catalogs"] || []
+      string_catalog_paths.each do |path|
+        next unless string_catalog_key
+        UI.user_error!("String catalog path #{path} does not exist") unless File.exist?(path)
+        UI.verbose("Reading string catalog: #{path}")
+        
+        file = File.read(path)
+        string_catalog = JSON.parse(file)
+        UI.user_error!("Only string catalogs with source language 'en' is currently supported.") unless string_catalog["sourceLanguage"] == "en"
+        return string_catalog_key if screenshot_language == "en"
+
+        strings = string_catalog["strings"]
+        UI.user_error!("String catalog does not contain a 'strings' key") if strings.nil?
+        entry = strings[string_catalog_key]
+        next if entry.nil?
+        localizations = entry["localizations"]
+        next if localizations.nil?
+
+        localizations.each do |language, entry|
+          next unless screenshot_language == language
+          translation = entry["stringUnit"]
+          UI.user_error!("Translation state not 'translated' for #{screenshot_language} entry '#{entry}'") unless translation["state"] == "translated"
+          value = translation["value"]
+          next if value.nil?
+          UI.verbose("Found translation: #{screenshot_language}: #{value}")
+          return value
+        end
+      end
+      
+      if string_catalog_paths.length > 0 && string_catalog_key
+        UI.user_error!("No translation found for #{screenshot_language} key '#{string_catalog_key}' in any of the string catalogs")
+      end
     end
 
     def fetch_frame_color
