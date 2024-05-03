@@ -110,6 +110,16 @@ module Frameit
                                      env_name: 'FRAMEIT_STRING_CATALOGS',
                                      description: "A list of string catalog paths",
                                      type: Array,
+                                     default_value: ['']),
+        FastlaneCore::ConfigItem.new(key: :number_of_treads,
+                                     env_name: 'FRAMEIT_NUMBER_OF_THREADS',
+                                     description: "The number of threads to use for framing screenshots",
+                                     type: Integer,
+                                     default_value: 1),
+        FastlaneCore::ConfigItem.new(key: :skip_directories,
+                                     env_name: 'FRAMEIT_SKIP_DIRECTORIES',
+                                     description: "A list of directory names to skip",
+                                     type: Array,
                                      default_value: [''])
       ]
     end
