@@ -134,11 +134,12 @@ module Snapshot
 
       if arguments.nil? || arguments.empty?
         # The time needs to be passed as ISO8601 so the simulator formats it correctly
-        time = Time.new(2007, 1, 9, 9, 41, 0)
+        # It appears overriding the date no longer works (Xcode 15.3).
+        # time = Time.new(2007, 1, 9, 9, 41, 0)
 
         # If you don't override the operator name, you'll get "Carrier" in the status bar on no-notch devices such as iPhone 8. Pass an empty string to blank it out.
 
-        arguments = "--time #{time.iso8601} --dataNetwork wifi --wifiMode active --wifiBars 3 --cellularMode active --operatorName '' --cellularBars 4 --batteryState charged --batteryLevel 100"
+        arguments = "--time \"09:41\" --dataNetwork wifi --wifiMode active --wifiBars 3 --cellularMode active --operatorName '' --cellularBars 4 --batteryState charged --batteryLevel 100"
       end
 
       Helper.backticks("xcrun simctl status_bar #{device_udid} override #{arguments} &> /dev/null")
