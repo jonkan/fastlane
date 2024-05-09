@@ -565,7 +565,7 @@ module Frameit
         next if localizations.nil?
 
         localizations.each do |language, entry|
-          next unless screenshot_language == language
+          next unless screenshot_locale == language || screenshot_language == language
           translation = entry["stringUnit"]
           UI.user_error!("Translation state not 'translated' for #{screenshot_language} entry '#{entry}'") unless translation["state"] == "translated"
           value = translation["value"]
