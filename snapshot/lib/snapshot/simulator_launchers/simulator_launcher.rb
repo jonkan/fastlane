@@ -171,7 +171,10 @@ module Snapshot
 
     def copy_screenshots(language: nil, locale: nil, launch_args: nil)
       raw_output = File.read(xcodebuild_log_path(language: language, locale: locale))
-      dir_name = locale || language
+      
+      mapped_language = Spaceship::Tunes::LanguageConverter.from_locale_to_itc(locale || language)
+      UI.important("Mapping language '#{locale || language}' to '#{mapped_language}'")
+      dir_name = mapped_language
       return Collector.fetch_screenshots(raw_output, dir_name, '', launch_args.first)
     end
 

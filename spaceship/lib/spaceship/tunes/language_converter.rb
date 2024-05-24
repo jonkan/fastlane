@@ -22,6 +22,12 @@ module Spaceship
           (result || {}).fetch('name', nil)
         end
 
+        # Converts locales (da-DK, en-US) to itc language short codes (da, en-US)
+        def from_locale_to_itc(from)
+          result = mapping.find { |a| a['locale'] == from || (a['alternatives'] || []).include?(from) }
+          return result['itc_locale'] || result['locale']
+        end
+
         # Converts the language "UK English" (user facing) to "English_UK" (value)
         def from_itc_readable_to_itc(from)
           readable_mapping.each do |key, value|
