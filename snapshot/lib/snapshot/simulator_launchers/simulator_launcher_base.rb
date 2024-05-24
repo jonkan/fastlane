@@ -1,5 +1,6 @@
 require 'plist'
 require 'time'
+require 'spaceship/tunes/tunes'
 
 require_relative '../module'
 require_relative '../test_command_generator'

@@ -88,7 +88,7 @@
         "alternatives": [
             "fi"
         ],
-        "itc_locale": "fin"
+        "itc_locale": "fi"
     },
     {
         "locale": "fr-CA",
@@ -195,7 +195,7 @@
         "itc_locale": "ms"
     },
     {
-        "locale": "no-NO",
+        "locale": "nb-NO",
         "name": "Norwegian",
         "game-center": true,
         "alternatives": [

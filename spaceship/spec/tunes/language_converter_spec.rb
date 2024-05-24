@@ -61,7 +61,7 @@ describe String do
       expect("UK English".to_itc_locale).to eq("en-GB")
       expect("Canadian English".to_itc_locale).to eq("en-CA")
       expect("English".to_itc_locale).to eq("en-US")
-      expect("Finnish".to_itc_locale).to eq("fin")
+      expect("Finnish".to_itc_locale).to eq("fi")
       expect("French".to_itc_locale).to eq("fr-FR")
       expect("Canadian French".to_itc_locale).to eq("fr-CA")
       expect("Greek".to_itc_locale).to eq("el")
