@@ -1,4 +1,5 @@
 require 'mini_magick'
+require 'spaceship/tunes/tunes'
 
 require_relative 'template_finder'
 require_relative 'trim_box'
@@ -541,7 +542,8 @@ module Frameit
     def fetch_string_catalog_text(type)
       UI.user_error!("Valid parameters :keyword, :title") unless [:keyword, :title].include?(type)
 
-      screenshot_locale = File.basename(File.dirname(screenshot.path))
+      screenshot_itc_locale = File.basename(File.dirname(screenshot.path))
+      screenshot_locale = Spaceship::Tunes::LanguageConverter.from_itc_to_locale(screenshot_itc_locale)
       screenshot_language = screenshot_locale.split('-').first
       UI.user_error!("Failed to parse language from screenshot path #{screenshot.path}") unless screenshot_language.length == 2
 
