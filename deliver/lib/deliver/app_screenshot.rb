@@ -36,6 +36,8 @@ module Deliver
       IOS_IPAD_PRO = "iOS-iPad-Pro"
       # iPad Pro (12.9-inch) (3rd generation)
       IOS_IPAD_PRO_12_9 = "iOS-iPad-Pro-12.9"
+      # iPad Pro 13-inch (M4)
+      IOS_IPAD_PRO_13_1 = "iOS-iPad-Pro-13"
 
       # iPhone 5 iMessage
       IOS_40_MESSAGES = "iOS-4-in-messages"
@@ -114,6 +116,7 @@ module Deliver
         ScreenSize::IOS_IPAD_11 => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::APP_IPAD_PRO_3GEN_11,
         ScreenSize::IOS_IPAD_PRO => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::APP_IPAD_PRO_129,
         ScreenSize::IOS_IPAD_PRO_12_9 => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::APP_IPAD_PRO_3GEN_129,
+        ScreenSize::IOS_IPAD_PRO_13_1 => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::APP_IPAD_PRO_3GEN_129,
         ScreenSize::IOS_40_MESSAGES => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::IMESSAGE_APP_IPHONE_40,
         ScreenSize::IOS_47_MESSAGES => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::IMESSAGE_APP_IPHONE_47, # also 7 & 8
         ScreenSize::IOS_55_MESSAGES => Spaceship::ConnectAPI::AppScreenshotSet::DisplayType::IMESSAGE_APP_IPHONE_55, # also 7 Plus & 8 Plus
@@ -152,6 +155,7 @@ module Deliver
         ScreenSize::IOS_IPAD_11 => "iPad 11",
         ScreenSize::IOS_IPAD_PRO => "iPad Pro",
         ScreenSize::IOS_IPAD_PRO_12_9 => "iPad Pro (12.9-inch) (3rd generation)",
+        ScreenSize::IOS_IPAD_PRO_13_1 => "iPad Pro 13-inch (M4)",
         ScreenSize::IOS_40_MESSAGES => "iPhone 5 (iMessage)",
         ScreenSize::IOS_47_MESSAGES => "iPhone 6 (iMessage)", # also 7 & 8
         ScreenSize::IOS_55_MESSAGES => "iPhone 6 Plus (iMessage)", # also 7 Plus & 8 Plus
@@ -330,6 +334,10 @@ module Deliver
         ScreenSize::IOS_IPAD_PRO => [
           [2732, 2048],
           [2048, 2732]
+        ],
+        ScreenSize::IOS_IPAD_PRO_13_1 => [
+          [2752, 2064],
+          [2064, 2752]
         ],
         ScreenSize::MAC => [
           [1280, 800],
